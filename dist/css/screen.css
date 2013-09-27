@@ -1,3 +1,1 @@
-body {
-	background: salmon;
-}
+body{background-image:-webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #9fef68), color-stop(100%, #40e0d0));background-image:-webkit-linear-gradient(left top, #9fef68,#40e0d0);background-image:-moz-linear-gradient(left top, #9fef68,#40e0d0);background-image:-o-linear-gradient(left top, #9fef68,#40e0d0);background-image:linear-gradient(left top, #9fef68,#40e0d0)}

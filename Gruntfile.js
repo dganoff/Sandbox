@@ -11,6 +11,15 @@ module.exports = function(grunt) {
 				}
 		    }
 		},
+		compass: {
+			dist: {
+				options: {
+					sassDir: 'src/sass',
+					cssDir: 'dist/css',
+					outputStyle: 'compressed'
+				}
+			}
+		},
 		connect: {
 			server: {
 				options: {
@@ -23,6 +32,10 @@ module.exports = function(grunt) {
 		watch: {
 			options: {
 				livereload: true
+			},
+			scss: {
+				files: ['src/sass/*.scss'],
+				tasks: 'compass'
 			},
 			css: {
 			    files: 'dist/css/*.css'
@@ -44,8 +57,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-compass');
 
 	// Register Tasks:
 	grunt.registerTask('default', ['uglify']);
-	grunt.registerTask('dev', ['connect','watch', 'jshint']);
+	grunt.registerTask('dev', ['connect','watch', 'compass', 'jshint']);
 };
