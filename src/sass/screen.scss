@@ -4,4 +4,6 @@ body {
 	@include background-image(
 		linear-gradient(left top, mix(turquoise, yellow), turquoise)
 	);
+	font-family: helvetica, arial, san-serif;
+	color: #333;
 }
