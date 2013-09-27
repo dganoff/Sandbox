@@ -64,5 +64,5 @@ module.exports = function(grunt) {
 
 	// Register Tasks:
 	grunt.registerTask('default', ['uglify']);
-	grunt.registerTask('dev', ['connect','watch', 'compass', 'jshint']);
+	grunt.registerTask('dev', ['connect', 'watch', 'jshint']);
 };
