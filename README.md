@@ -20,4 +20,3 @@ For first time installation, clone this repo and run "npm install" on the direct
 	* Maybe use yeoman generator to scaffold baseline Angular project and add components like controllers
 2. Add Grunt concatenate package/task (after minification)
 3. Test JSHint grunt task
-4. Add Font Awesome icon font
