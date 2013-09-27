@@ -1,5 +1,7 @@
 @import "compass/css3";
 
 body {
-	@include background-image(linear-gradient(left top, mix(turquoise, yellow), turquoise));
+	@include background-image(
+		linear-gradient(left top, mix(turquoise, yellow), turquoise)
+	);
 }
