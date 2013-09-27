@@ -5,7 +5,7 @@ Where I can test out new stuff!
 
 For first time installation, clone this repo and run "npm install" on the directory to get all the dependencies.
 
-## Stuff in this sandbox:
+## Toys:
 1. GruntJS
 	* Grunt Tasks
 		1. Connect (localhost web server with Live Reload)
