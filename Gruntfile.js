@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		uglify: {
 			options: {
-		    	banner: '/*! <%= pkg.name %> <%= grunt.template.today("mm-dd-yyyy") %> */\n'
+		    	banner: '/*! <%= pkg.name %> ver. <%= pkg.version %> <%= grunt.template.today("mm-dd-yyyy") %> */\n'
 		    },
 			dist: {
 				files: {
@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 		compass: {
 			dist: {
 				options: {
-					sassDir: 'src/sass',
+					sassDir: 'src/scss',
 					cssDir: 'dist/css',
 					outputStyle: 'compressed'
 				}
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 				livereload: true
 			},
 			scss: {
-				files: ['src/sass/*.scss'],
+				files: ['src/scss/**/*.scss'],
 				tasks: 'compass'
 			},
 			css: {
@@ -43,6 +43,9 @@ module.exports = function(grunt) {
 			scripts: {
 				files: ['src/js/*.js'],
 				tasks: ['uglify']
+			},
+			html: {
+				files: ['*.html']
 			}
 		},
 		jshint: {

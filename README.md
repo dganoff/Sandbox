@@ -15,4 +15,4 @@ Where I can test out new stuff!
 ### Todo:
 1. Add Angular Framework - setup JS concatenation/minification
 	* Maybe use yeoman generator to scaffold baseline Angular project and add components like controllers
-2. Add CSS Framework like Foundation or a less-heavy one just for essentials
+2. Add Grunt concatenate task (after minification)

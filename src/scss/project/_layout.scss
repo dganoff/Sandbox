@@ -1,0 +1,5 @@
+body {
+	@include background-image(
+		linear-gradient(top left, turquoise, yellow)
+	);
+}
