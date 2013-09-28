@@ -18,5 +18,7 @@ For first time installation, clone this repo and run "npm install" on the direct
 ### Todo:
 1. Add Angular Framework - setup JS concatenation/minification
 	* Maybe use yeoman generator to scaffold baseline Angular project and add components like controllers
-2. Add Grunt concatenate package/task (after minification)
+2. Add Grunt Concatenate package/task (after minification)
 3. Test JSHint grunt task
+4. Add Grunt Copy package/task to copy assets like images or fonts
+5. Add Grunt package/task to compress and/or optimize images (png/jpg)
