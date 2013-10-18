@@ -7,54 +7,54 @@
 // Compass Stuff
 @import "compass/css3";
 
-// This includes all of the foundation global elements that are needed to work with any of the other files.
-@import "foundation/variables";
-
 // Fonts
-@import "font-awesome/variables";
-@import "font-awesome/mixins";
-@import "font-awesome/path";
-@import "font-awesome/core";
-@import "font-awesome/extras";
-@import "font-awesome/icons";
+@import "vendor/font-awesome/variables";
+@import "vendor/font-awesome/mixins";
+@import "vendor/font-awesome/path";
+@import "vendor/font-awesome/core";
+@import "vendor/font-awesome/extras";
+@import "vendor/font-awesome/icons";
+
+// This includes all of the foundation global elements that are needed to work with any of the other files.
+@import "vendor/foundation/variables";
 
 // Foundation Components
 @import
-	"foundation/components/global",
-	"foundation/components/grid",
-	"foundation/components/visibility",
-	"foundation/components/block-grid",
-	"foundation/components/type",
-	"foundation/components/buttons",
-	"foundation/components/forms",
-	"foundation/components/button-groups",
-	"foundation/components/dropdown-buttons",
-	"foundation/components/split-buttons",
-	// "foundation/components/flex-video",
-	"foundation/components/section",
-	"foundation/components/top-bar",
-	// "foundation/components/orbit",
-	// "foundation/components/reveal",
-	// "foundation/components/joyride",
-	"foundation/components/clearing",
-	"foundation/components/alert-boxes",
-	"foundation/components/breadcrumbs",
-	"foundation/components/custom-forms",
-	"foundation/components/keystrokes",
-	"foundation/components/labels",
-	"foundation/components/inline-lists",
-	"foundation/components/pagination",
-	"foundation/components/panels",
-	// "foundation/components/pricing-tables",
-	"foundation/components/progress-bars",
-	"foundation/components/side-nav",
-	"foundation/components/sub-nav",
-	"foundation/components/switch",
-	// "foundation/components/magellan",
-	"foundation/components/tables",
-	"foundation/components/thumbs",
-	"foundation/components/tooltips",
-	"foundation/components/dropdown";
+	"vendor/foundation/components/global",
+	"vendor/foundation/components/grid",
+	"vendor/foundation/components/visibility",
+	"vendor/foundation/components/block-grid",
+	"vendor/foundation/components/type",
+	"vendor/foundation/components/buttons",
+	"vendor/foundation/components/forms",
+	"vendor/foundation/components/button-groups",
+	"vendor/foundation/components/dropdown-buttons",
+	"vendor/foundation/components/split-buttons",
+	// "vendor/foundation/components/flex-video",
+	"vendor/foundation/components/section",
+	"vendor/foundation/components/top-bar",
+	// "vendor/foundation/components/orbit",
+	// "vendor/foundation/components/reveal",
+	// "vendor/foundation/components/joyride",
+	"vendor/foundation/components/clearing",
+	"vendor/foundation/components/alert-boxes",
+	"vendor/foundation/components/breadcrumbs",
+	"vendor/foundation/components/custom-forms",
+	"vendor/foundation/components/keystrokes",
+	"vendor/foundation/components/labels",
+	"vendor/foundation/components/inline-lists",
+	"vendor/foundation/components/pagination",
+	"vendor/foundation/components/panels",
+	// "vendor/foundation/components/pricing-tables",
+	"vendor/foundation/components/progress-bars",
+	"vendor/foundation/components/side-nav",
+	"vendor/foundation/components/sub-nav",
+	"vendor/foundation/components/switch",
+	// "vendor/foundation/components/magellan",
+	"vendor/foundation/components/tables",
+	"vendor/foundation/components/thumbs",
+	"vendor/foundation/components/tooltips",
+	"vendor/foundation/components/dropdown";
 
 // Project-specific Files
-@import "project/layout";
+@import "global/layout";
