@@ -1,6 +1,16 @@
 module.exports = function(grunt) {
+
+	"use strict";
+
+	// Configuration:
+	var THEME = "sandbox",
+		SRC = "./src/",
+		DIST = "./dist/",
+		SERVER_PORT = "7777";
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+
 		uglify: {
 			options: {
 		    	banner: '/*! <%= pkg.name %> ver. <%= pkg.version %> <%= grunt.template.today("mm-dd-yyyy") %> */\n'
@@ -11,12 +21,18 @@ module.exports = function(grunt) {
 				}
 		    }
 		},
-		compass: {
+
+		sass: {
 			dist: {
+				files: [{
+					src : ['**/*.scss', '!**/_*.scss'],
+		            cwd : 'src/scss',
+		            dest : 'dist/css',
+		            ext : '.css',
+		            expand : true
+				}],
 				options: {
-					sassDir: 'src/scss',
-					cssDir: 'dist/css',
-					outputStyle: 'compressed'
+					style: 'compressed'
 				}
 			}
 		},
@@ -24,18 +40,20 @@ module.exports = function(grunt) {
 			server: {
 				options: {
 					hostname: 'localhost',
-					port: 7777,
+					port: SERVER_PORT,
+					base: DIST,
 					livereload: true
 				}
 			}
 		},
+
 		watch: {
 			options: {
 				livereload: true
 			},
 			scss: {
-				files: ['src/scss/**'],
-				tasks: 'compass'
+				files: ['src/scss/**/*.scss'],
+				tasks: 'sass'
 			},
 			css: {
 			    files: 'dist/css/*.css'
@@ -45,12 +63,32 @@ module.exports = function(grunt) {
 				tasks: ['uglify']
 			},
 			html: {
-				files: ['*.html']
+				files: [SRC + 'templates/**/*.hbs'],
+				tasks: ['assemble']
 			}
 		},
+
 		jshint: {
 			files: {
 				src: ['src/js/*.js', 'dist/js/*.js']
+			}
+		},
+
+		assemble: {
+			options: {
+				flatten: true,
+				// assets: "path/to/assets",
+        		layoutdir: 'src/templates/layouts',
+				layout: 'layout.hbs',
+				data: [SRC + "data/*.{json, yml}"],
+				partials: ['src/templates/pages/*.hbs', 'src/templates/parts/*.hbs'],
+				ext: '.html',
+				theme: THEME
+			},
+			pages: {
+				files: {
+		        	DIST: ['src/templates/pages/*.hbs']
+		        }
 			}
 		}
 	});
@@ -60,9 +98,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-compass');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('assemble');
+	grunt.loadNpmTasks('grunt-newer');
 
 	// Register Tasks:
-	grunt.registerTask('default', ['uglify']);
+	grunt.registerTask('default', ['assemble']);
 	grunt.registerTask('dev', ['connect', 'watch', 'jshint']);
 };

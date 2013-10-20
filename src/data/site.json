@@ -1,0 +1,12 @@
+{
+    "title": "Sandbox",
+    "repo": "dganoff/Sandbox",
+    "author": {
+        "name": "Demetri Ganoff",
+        "twitter": "@dganoff"
+    },
+    "meta": {
+        "description": "A sandbox for testing new technologies and experiments!",
+        "keywords": "Front-end Development, Web Design, JavaScript, CSS, HTML"
+    }
+}
