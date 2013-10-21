@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 		            expand : true
 				}],
 				options: {
-					style: 'compressed'
+					style: 'expanded'
 				}
 			}
 		},
@@ -52,18 +52,18 @@ module.exports = function(grunt) {
 				livereload: true
 			},
 			scss: {
-				files: ['src/scss/**/*.scss'],
+				files: [SRC + 'scss/**/*.scss'],
 				tasks: 'sass'
 			},
 			css: {
-			    files: 'dist/css/*.css'
+			    files: DIST + 'css/*.css'
 			},
 			scripts: {
-				files: ['src/js/*.js'],
+				files: [SRC + 'js/*.js'],
 				tasks: ['uglify']
 			},
 			html: {
-				files: [SRC + 'templates/**/*.hbs'],
+				files: [SRC + 'templates/**/*.hbs', SRC + 'data/*.{json, yml}'],
 				tasks: ['assemble']
 			}
 		},

@@ -4,6 +4,9 @@
 // Reset
 @import "normalize";
 
+// Bourbon Mixin Library:
+@import "../bower-components/bourbon/app/assets/stylesheets/bourbon";
+
 // Fonts
 @import "../bower-components/font-awesome/scss/variables";
 @import "../bower-components/font-awesome/scss/mixins";
@@ -13,8 +16,7 @@
 @import "../bower-components/font-awesome/scss/extras";
 @import "../bower-components/font-awesome/scss/icons";
 
-// Bourbon Mixin Library:
-@import "../bower-components/bourbon/app/assets/stylesheets/bourbon";
-
 // Project-specific Files
+@import "global/vars";
+@import "global/grid";
 @import "global/layout";

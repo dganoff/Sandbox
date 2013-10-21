@@ -1,5 +1,16 @@
+* {
+	@include box-sizing(border-box);
+}
+
+html {
+	height: 100%;
+}
+
 body {
-	@include background-image(
-		linear-gradient(bottom left, purple, turquoise, yellow)
-	);
+	height: 100%;
+	// @include background-image(
+	// 	linear-gradient(bottom left, purple, turquoise, yellow)
+	// );
+	background: $background-color;
+	color: white;
 }
