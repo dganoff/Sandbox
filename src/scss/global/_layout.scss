@@ -2,12 +2,11 @@
 	@include box-sizing(border-box);
 }
 
-html {
+html, body {
 	height: 100%;
 }
 
 body {
-	height: 100%;
 	// @include background-image(
 	// 	linear-gradient(bottom left, purple, turquoise, yellow)
 	// );

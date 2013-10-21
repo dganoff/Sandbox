@@ -90,6 +90,13 @@ module.exports = function(grunt) {
 		        	DIST: ['src/templates/pages/*.hbs']
 		        }
 			}
+			// blog: {
+			// 	options: {
+			// 		layout: 'blog-layout.hbs'
+			// 	},
+			// 	src: [SRC + 'templates/blog/*.hbs'],
+			// 	dest: DIST + 'articles/'
+			// }
 		}
 	});
 

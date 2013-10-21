@@ -2397,12 +2397,11 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
   box-sizing: border-box;
 }
 
-html {
+html, body {
   height: 100%;
 }
 
 body {
-  height: 100%;
-  background: #007989;
+  background: #008799;
   color: white;
 }
