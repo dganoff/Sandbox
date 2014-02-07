@@ -37,11 +37,24 @@ module.exports = function(grunt) {
 			}
 		},
 
+		imagemin: {
+			dynamic: {
+				files: [
+					{
+						expand: true,
+						cwd: SRC,
+						src: ['img/*.{png,jpg,gif}'],
+						dest: DIST
+					}
+				]
+			}
+		},
+
 		sass: {
 			dist: {
 				files: [{
 					src : ['**/*.scss', '!**/_*.scss'],
-		            cwd : 'src/scss',
+		            cwd : SRC + 'scss',
 		            dest : DIST + 'css',
 		            ext : '.css',
 		            expand : true
@@ -49,6 +62,32 @@ module.exports = function(grunt) {
 				options: {
 					style: 'expanded'
 				}
+			}
+		},
+
+		jshint: {
+			options: {
+				'-W099': true // ignore warning about mixed spaces and tabs
+			},
+			files: {
+				src: [SRC + 'js/*.js']
+			}
+		},
+
+		htmlhint: {
+			build: {
+				options: {
+					'tag-pair': true,
+					'tagname-lowercase': true,
+					'attr-lowercase': true,
+					'attr-value-double-quotes': true,
+					'doctype-first': true,
+					'spec-char-escape': true,
+					'id-unique': true,
+					'head-script-disabled': true,
+					'style-disabled': true
+				},
+				src: [DIST + '**/*.html']
 			}
 		},
 
@@ -76,34 +115,11 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: [SRC + 'js/*.js'],
-				tasks: ['uglify', 'jshint']
+				tasks: ['jshint', 'uglify']
 			},
 			html: {
 				files: [SRC + 'templates/**/*.hbs', SRC + 'data/*.{json, yml}'],
 				tasks: ['clean', 'assemble', 'htmlhint']
-			}
-		},
-
-		jshint: {
-			files: {
-				src: [SRC + 'js/**/*.js']
-			}
-		},
-
-		htmlhint: {
-			build: {
-				options: {
-					'tag-pair': true,
-					'tagname-lowercase': true,
-					'attr-lowercase': true,
-					'attr-value-double-quotes': true,
-					'doctype-first': true,
-					'spec-char-escape': true,
-					'id-unique': true,
-					'head-script-disabled': true,
-					'style-disabled': true
-				},
-				src: [DIST + '**/*.html']
 			}
 		},
 
@@ -139,5 +155,14 @@ module.exports = function(grunt) {
 
 	// Register Tasks:
 	grunt.registerTask('default', ['connect', 'watch']);
-	grunt.registerTask('build', ['copy', 'sass', 'uglify', 'jshint', 'assemble', 'htmlhint']);
+	grunt.registerTask('build', [
+		'clean',
+		'newer:copy',
+		'newer:sass',
+		'jshint',
+		'uglify',
+		'assemble', // not newer because we ran clean
+		'htmlhint',
+		'newer:imagemin'
+	]);
 };
