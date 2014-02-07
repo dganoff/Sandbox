@@ -13,13 +13,28 @@ module.exports = function(grunt) {
 
 		uglify: {
 			options: {
-		    	banner: '/*! <%= pkg.name %> ver. <%= pkg.version %> <%= grunt.template.today("mm-dd-yyyy") %> */\n'
+		    	banner: '/*! <%= pkg.name %> ver. <%= pkg.version %> <%= grunt.template.today("mm-dd-yyyy, h:MM:ss TT") %> */\n'
 		    },
 			dist: {
 				files: {
-					'dist/js/app.min.js': ['src/js/one.js', 'src/js/two.js']
+					'dist/js/app.min.js': [
+						SRC + 'js/*.js'
+					]
 				}
 		    }
+		},
+
+		copy: {
+			fonts: {
+				files: [
+					{
+						expand: true,
+						src: [SRC + 'bower-components/font-awesome/font/*'], // apparently required for latest version of jQuery from bower
+						flatten: true,
+						dest: DIST + 'font'
+					}
+				]
+			}
 		},
 
 		sass: {
@@ -27,7 +42,7 @@ module.exports = function(grunt) {
 				files: [{
 					src : ['**/*.scss', '!**/_*.scss'],
 		            cwd : 'src/scss',
-		            dest : 'dist/css',
+		            dest : DIST + 'css',
 		            ext : '.css',
 		            expand : true
 				}],
@@ -36,6 +51,7 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+
 		connect: {
 			server: {
 				options: {
@@ -60,56 +76,68 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: [SRC + 'js/*.js'],
-				tasks: ['uglify']
+				tasks: ['uglify', 'jshint']
 			},
 			html: {
 				files: [SRC + 'templates/**/*.hbs', SRC + 'data/*.{json, yml}'],
-				tasks: ['assemble']
+				tasks: ['clean', 'assemble', 'htmlhint']
 			}
 		},
 
 		jshint: {
 			files: {
-				src: ['src/js/*.js', 'dist/js/*.js']
+				src: [SRC + 'js/**/*.js']
 			}
+		},
+
+		htmlhint: {
+			build: {
+				options: {
+					'tag-pair': true,
+					'tagname-lowercase': true,
+					'attr-lowercase': true,
+					'attr-value-double-quotes': true,
+					'doctype-first': true,
+					'spec-char-escape': true,
+					'id-unique': true,
+					'head-script-disabled': true,
+					'style-disabled': true
+				},
+				src: [DIST + '**/*.html']
+			}
+		},
+
+		clean: {
+			build: [
+				DIST + '**/*.html'
+			]
 		},
 
 		assemble: {
 			options: {
 				flatten: true,
 				// assets: "path/to/assets",
-        		layoutdir: 'src/templates/layouts',
+        		layoutdir: SRC + 'templates/layouts',
 				layout: 'layout.hbs',
 				data: [SRC + "data/*.{json, yml}"],
-				partials: ['src/templates/pages/*.hbs', 'src/templates/parts/*.hbs'],
-				ext: '.html',
-				theme: THEME
+				partials: [
+					SRC + 'templates/pages/*.hbs',
+					SRC + 'templates/parts/*.hbs'
+				]
 			},
 			pages: {
 				files: {
-		        	DIST: ['src/templates/pages/*.hbs']
+		        	'dist': ['src/templates/pages/{,*/}*.hbs']
 		        }
 			}
-			// blog: {
-			// 	options: {
-			// 		layout: 'blog-layout.hbs'
-			// 	},
-			// 	src: [SRC + 'templates/blog/*.hbs'],
-			// 	dest: DIST + 'articles/'
-			// }
 		}
 	});
 
 	// Load Tasks:
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-connect');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-sass');
+    require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
 	grunt.loadNpmTasks('assemble');
-	grunt.loadNpmTasks('grunt-newer');
 
 	// Register Tasks:
-	grunt.registerTask('default', ['assemble']);
-	grunt.registerTask('dev', ['connect', 'watch', 'jshint']);
+	grunt.registerTask('default', ['connect', 'watch']);
+	grunt.registerTask('build', ['copy', 'sass', 'uglify', 'jshint', 'assemble', 'htmlhint']);
 };
