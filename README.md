@@ -18,9 +18,7 @@ For first time installation, clone this repo and run "npm install" on the direct
 1. NodeJS (NPM)
 2. Ruby
 	1. SASS
-3. Grunt
+	2. SASS GLOBBING
+3. Grunt JS
 
 ### Todo:
-4. Add Grunt Copy package/task to copy assets like images or fonts
-5. Add Grunt package/task to compress and/or optimize images (png/jpg)
-6. Add modernizr via bower
