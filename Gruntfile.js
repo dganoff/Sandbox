@@ -13,15 +13,28 @@ module.exports = function(grunt) {
 
 		uglify: {
 			options: {
-		    	banner: '/*! <%= pkg.name %> ver. <%= pkg.version %> <%= grunt.template.today("mm-dd-yyyy, h:MM:ss TT") %> */\n'
-		    },
+				banner: '/*! <%= pkg.name %> ver. <%= pkg.version %> <%= grunt.template.today("mm-dd-yyyy, h:MM:ss TT") %> */\n'
+			},
 			dist: {
 				files: {
 					'dist/js/app.min.js': [
 						SRC + 'js/*.js'
 					]
 				}
-		    }
+			}
+		},
+
+		concat: {
+			options: {
+				separator: ';\n',
+			},
+			vendor: {
+				src: [
+					SRC + 'js/vendor/jquery.js',
+					SRC + 'js/vendor/foundation.min.js'
+				],
+				dest: DIST + 'js/vendor.js',
+			}
 		},
 
 		copy: {
@@ -32,6 +45,16 @@ module.exports = function(grunt) {
 						src: [SRC + 'bower-components/font-awesome/font/*'], // apparently required for latest version of jQuery from bower
 						flatten: true,
 						dest: DIST + 'font'
+					}
+				]
+			},
+			javascript: {
+				files: [
+					{
+						expand: true,
+						src: [SRC + 'js/vendor/modernizr.js'],
+						flatten: true,
+						dest: DIST + 'js'
 					}
 				]
 			}
@@ -54,10 +77,10 @@ module.exports = function(grunt) {
 			dist: {
 				files: [{
 					src : ['**/*.scss', '!**/_*.scss'],
-		            cwd : SRC + 'scss',
-		            dest : DIST + 'css',
-		            ext : '.css',
-		            expand : true
+					cwd : SRC + 'scss',
+					dest : DIST + 'css',
+					ext : '.css',
+					expand : true
 				}],
 				options: {
 					style: 'expanded'
@@ -84,7 +107,6 @@ module.exports = function(grunt) {
 					'doctype-first': true,
 					'spec-char-escape': true,
 					'id-unique': true,
-					'head-script-disabled': true,
 					'style-disabled': true
 				},
 				src: [DIST + '**/*.html']
@@ -111,15 +133,19 @@ module.exports = function(grunt) {
 				tasks: 'sass'
 			},
 			css: {
-			    files: DIST + 'css/*.css'
+				files: DIST + 'css/*.css'
 			},
 			scripts: {
 				files: [SRC + 'js/*.js'],
 				tasks: ['jshint', 'uglify']
 			},
 			html: {
-				files: [SRC + 'templates/**/*.hbs', SRC + 'data/*.{json, yml}'],
+				files: [SRC + 'templates/**/*.html', SRC + 'data/*.{json, yml}'],
 				tasks: ['clean', 'assemble', 'htmlhint']
+			},
+			images: {
+				files: [SRC + 'img/*.{png,jpg,gif}'],
+				tasks: ['newer:imagemin']
 			}
 		},
 
@@ -133,24 +159,24 @@ module.exports = function(grunt) {
 			options: {
 				flatten: true,
 				// assets: "path/to/assets",
-        		layoutdir: SRC + 'templates/layouts',
-				layout: 'layout.hbs',
+				layoutdir: SRC + 'templates/layouts',
+				layout: 'layout.html',
 				data: [SRC + "data/*.{json, yml}"],
 				partials: [
-					SRC + 'templates/pages/*.hbs',
-					SRC + 'templates/parts/*.hbs'
+					SRC + 'templates/pages/*.html',
+					SRC + 'templates/parts/*.html'
 				]
 			},
 			pages: {
 				files: {
-		        	'dist': ['src/templates/pages/{,*/}*.hbs']
-		        }
+					'dist': ['src/templates/pages/{,*/}*.html']
+				}
 			}
 		}
 	});
 
 	// Load Tasks:
-    require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
+	require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
 	grunt.loadNpmTasks('assemble');
 
 	// Register Tasks:
@@ -159,6 +185,7 @@ module.exports = function(grunt) {
 		'clean',
 		'newer:copy',
 		'newer:sass',
+		'concat',
 		'jshint',
 		'uglify',
 		'assemble', // not newer because we ran clean
