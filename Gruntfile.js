@@ -2,6 +2,9 @@ module.exports = function(grunt) {
 
 	"use strict";
 
+	// Display the execution time when tasks are run:
+	require('time-grunt')(grunt);
+
 	// Configuration:
 	var THEME = "sandbox",
 		SRC = "./src/",
